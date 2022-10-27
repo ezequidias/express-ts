@@ -35,10 +35,10 @@ services:
       target: mysql
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-      MYSQL_DATABASE: '${DB_DATABASE}'
-      MYSQL_USER: '${DB_USER}'
-      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: default
+      MYSQL_USER: default
+      MYSQL_PASSWORD: secret
       TZ: UTC
     volumes:
       - ~/data/mysql-express-ts2:/var/lib/mysql
