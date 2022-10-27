@@ -3,7 +3,7 @@ import { ConnectionOptions } from 'typeorm';
 import { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_DATABASE } from '@config';
 
 export const dbConnection: ConnectionOptions = {
-  type: 'postgres',
+  type: 'mysql',
   host: DB_HOST,
   port: Number(DB_PORT),
   username: DB_USER,
@@ -20,3 +20,5 @@ export const dbConnection: ConnectionOptions = {
     subscribersDir: 'src/subscriber',
   },
 };
+
+export default dbConnection;
