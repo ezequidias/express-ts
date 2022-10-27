@@ -26,18 +26,25 @@ services:
     networks:
       - backend
     links:
-      - pg
+      - mysql
     depends_on:
-      - pg
-  pg:
-    image: bitnami/postgresql:11-debian-9
-    container_name: pg
+      - mysql
+  mysql:
+    build:
+      context: .
+      target: mysql
+    container_name: mysql
     environment:
-      POSTGRESQL_USERNAME: root
-      POSTGRESQL_PASSWORD: password
-      POSTGRESQL_DATABASE: test
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USER}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      TZ: UTC
+    volumes:
+      - ~/data/mysql-express-ts2:/var/lib/mysql
+      - ./docker/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
-      - '5432:5432'
+      - '3304:3306'
     networks:
       - backend
 

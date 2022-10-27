@@ -22,3 +22,21 @@ FROM common-build-stage as production-build-stage
 ENV NODE_ENV production
 
 CMD ["npm", "run", "start"]
+
+FROM mysql:8.0 as mysql
+
+#####################################
+# Set Timezone
+#####################################
+
+ARG TZ=UTC
+ENV TZ ${TZ}
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && chown -R mysql:root /var/lib/mysql/
+
+COPY ./docker/mysql/my.cnf /etc/mysql/conf.d/my.cnf
+
+RUN chmod 0444 /etc/mysql/conf.d/my.cnf
+
+CMD ["mysqld"]
+
+EXPOSE 3306
