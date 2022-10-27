@@ -77,7 +77,6 @@
     "typescript": "^4.7.4"
   },
   "engines": {
-    "node": "14.18.x",
-    "npm": "6.14.x"
+    "node": "14.14.0-alpine3.12"
   }
 }
