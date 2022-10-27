@@ -8,13 +8,13 @@ import { isEmpty } from '@utils/util';
 
 @EntityRepository()
 class UserService extends Repository<UserEntity> {
-  public async findAllUser(): Promise<User[]> {
+  public async findAll(): Promise<User[]> {
     const users: User[] = await UserEntity.find();
     return users;
   }
 
-  public async findUserById(userId: number): Promise<User> {
-    if (isEmpty(userId)) throw new HttpException(400, "UserId is empty");
+  public async findById(userId: number): Promise<User> {
+    if (isEmpty(userId)) throw new HttpException(400, 'UserId is empty');
 
     const findUser: User = await UserEntity.findOne({ where: { id: userId } });
     if (!findUser) throw new HttpException(409, "User doesn't exist");
@@ -22,8 +22,8 @@ class UserService extends Repository<UserEntity> {
     return findUser;
   }
 
-  public async createUser(userData: CreateUserDto): Promise<User> {
-    if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
+  public async create(userData: CreateUserDto): Promise<User> {
+    if (isEmpty(userData)) throw new HttpException(400, 'userData is empty');
 
     const findUser: User = await UserEntity.findOne({ where: { email: userData.email } });
     if (findUser) throw new HttpException(409, `This email ${userData.email} already exists`);
@@ -34,8 +34,8 @@ class UserService extends Repository<UserEntity> {
     return createUserData;
   }
 
-  public async updateUser(userId: number, userData: CreateUserDto): Promise<User> {
-    if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
+  public async update(userId: number, userData: CreateUserDto): Promise<User> {
+    if (isEmpty(userData)) throw new HttpException(400, 'userData is empty');
 
     const findUser: User = await UserEntity.findOne({ where: { id: userId } });
     if (!findUser) throw new HttpException(409, "User doesn't exist");
@@ -47,8 +47,8 @@ class UserService extends Repository<UserEntity> {
     return updateUser;
   }
 
-  public async deleteUser(userId: number): Promise<User> {
-    if (isEmpty(userId)) throw new HttpException(400, "UserId is empty");
+  public async delete(userId: number): Promise<User> {
+    if (isEmpty(userId)) throw new HttpException(400, 'UserId is empty');
 
     const findUser: User = await UserEntity.findOne({ where: { id: userId } });
     if (!findUser) throw new HttpException(409, "User doesn't exist");
