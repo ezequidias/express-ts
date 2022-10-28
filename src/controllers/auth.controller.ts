@@ -11,7 +11,7 @@ class AuthController {
     try {
       const userData: CreateUserDto = req.body;
       const signUpUserData: User = await this.authService.signup(userData);
-
+      delete signUpUserData.password
       res.status(201).json({ data: signUpUserData, message: 'signup' });
     } catch (error) {
       next(error);
@@ -21,10 +21,20 @@ class AuthController {
   public logIn = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const userData: CreateUserDto = req.body;
-      const { cookie, findUser } = await this.authService.login(userData);
-
+      const { cookie, findUser, tokenData } = await this.authService.login(userData);
+      delete findUser.password
       res.setHeader('Set-Cookie', [cookie]);
-      res.status(200).json({ data: findUser, message: 'login' });
+      res.status(200).json({ data: findUser, tokenData, message: 'login' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public userDetail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userData: User = req.user;
+      delete userData.password
+      res.status(200).json({ data: userData, message: 'userDetail' });
     } catch (error) {
       next(error);
     }
