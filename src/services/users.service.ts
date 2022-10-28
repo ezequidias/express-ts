@@ -1,6 +1,6 @@
 import { hash } from 'bcrypt';
 import { EntityRepository, Repository } from 'typeorm';
-import { CreateUserDto } from '@dtos/users.dto';
+import { CreateUserDto, UpdateUserDto } from '@dtos/users.dto';
 import { UserEntity } from '@entities/users.entity';
 import { HttpException } from '@exceptions/HttpException';
 import { User } from '@interfaces/users.interface';
@@ -8,6 +8,12 @@ import { isEmpty } from '@utils/util';
 
 @EntityRepository()
 class UserService extends Repository<UserEntity> {
+
+  public async count(): Promise<number> {
+    const total: number = await UserEntity.count();
+    return total;
+  }
+
   public async findAll(): Promise<User[]> {
     const users: User[] = await UserEntity.find();
     return users;
@@ -34,14 +40,16 @@ class UserService extends Repository<UserEntity> {
     return createUserData;
   }
 
-  public async update(userId: number, userData: CreateUserDto): Promise<User> {
+  public async update(userId: number, userData: UpdateUserDto): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, 'userData is empty');
 
     const findUser: User = await UserEntity.findOne({ where: { id: userId } });
     if (!findUser) throw new HttpException(409, "User doesn't exist");
 
-    const hashedPassword = await hash(userData.password, 10);
-    await UserEntity.update(userId, { ...userData, password: hashedPassword });
+    let hashedPassword = {}
+    if (userData.password) hashedPassword = { password: await hash(userData.password, 10) };
+
+    await UserEntity.update(userId, { ...userData, ...hashedPassword });
 
     const updateUser: User = await UserEntity.findOne({ where: { id: userId } });
     return updateUser;

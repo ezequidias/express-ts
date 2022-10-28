@@ -8,6 +8,12 @@ import { isEmpty } from '@utils/util';
 
 @EntityRepository()
 class ProductService extends Repository<ProductEntity> {
+
+  public async count(): Promise<number> {
+    const total: number = await ProductEntity.count();
+    return total;
+  }
+
   public async findAll(): Promise<Product[]> {
     const products: Product[] = await ProductEntity.find();
     return products;

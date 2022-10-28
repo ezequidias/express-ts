@@ -8,6 +8,12 @@ import { isEmpty } from '@utils/util';
 
 @EntityRepository()
 class CategoryService extends Repository<CategoryEntity> {
+
+  public async count(): Promise<number> {
+    const total: number = await CategoryEntity.count();
+    return total;
+  }
+
   public async findAll(): Promise<Category[]> {
     const categories: Category[] = await CategoryEntity.find();
     return categories;
