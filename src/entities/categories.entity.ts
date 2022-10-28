@@ -5,7 +5,7 @@ import { Category } from '@interfaces/categories.interface';
 @Entity({ name: 'categories' })
 export class CategoryEntity extends BaseEntity implements Category {
   @PrimaryGeneratedColumn()
-  id: number;
+  public id: number;
 
   @Column({nullable: true})
   parent_id: number;

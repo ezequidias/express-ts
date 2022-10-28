@@ -15,14 +15,14 @@ class ProductService extends Repository<ProductEntity> {
   }
 
   public async findAll(): Promise<Product[]> {
-    const products: Product[] = await ProductEntity.find();
+    const products: Product[] = await ProductEntity.find({ relations: ['category'] });
     return products;
   }
 
   public async findById(id: number): Promise<Product> {
     if (isEmpty(id)) throw new HttpException(400, 'id is empty');
 
-    const findProduct: Product = await ProductEntity.findOne({ where: { id: id } });
+    const findProduct: Product = await ProductEntity.findOne({ where: { id: id }, relations: ['category'] });
     if (!findProduct) throw new HttpException(409, "Product doesn't exist");
 
     return findProduct;
