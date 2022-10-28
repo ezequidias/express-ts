@@ -1,115 +1,221 @@
 tags:
-- name: users
-  description: users API
+  - name: auth
+    description: auth API
+  - name: users
+    description: users API
+  - name: products
+    description: products API
+  - name: categories
+    description: categories API
 
 paths:
-# [GET] users
+  # [GET] users
   /users:
     get:
       tags:
-      - users
+        - users
       summary: Find All Users
       responses:
         200:
-          description: 'OK'
+          description: "OK"
         500:
-          description: 'Server Error'
+          description: "Server Error"
 
-# [POST] users
+    # [POST] users
     post:
       tags:
-      - users
+        - users
       summary: Add User
       parameters:
-      - name: body
-        in: body
-        description: user Data
-        required: true
-        schema:
-          $ref: '#/definitions/users'
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: "#/definitions/users"
       responses:
         201:
-          description: 'Created'
+          description: "Created"
         400:
-          description: 'Bad Request'
+          description: "Bad Request"
         409:
-          description: 'Conflict'
+          description: "Conflict"
         500:
-          description: 'Server Error'
+          description: "Server Error"
 
-# [GET] users/id
+  # [GET] users/id
   /users/{id}:
     get:
       tags:
-      - users
+        - users
       summary: Find User By Id
       parameters:
-      - name: id
-        in: path
-        description: User Id
-        required: true
-        type: integer
+        - name: id
+          in: path
+          description: User Id
+          required: true
+          type: integer
       responses:
         200:
-          description: 'OK'
+          description: "OK"
         409:
-          description: 'Conflict'
+          description: "Conflict"
         500:
-          description: 'Server Error'
+          description: "Server Error"
 
-# [PUT] users/id
+    # [PUT] users/id
     put:
       tags:
-      - users
+        - users
       summary: Update User By Id
       parameters:
-      - name: id
-        in: path
-        description: user Id
-        required: true
-        type: integer
-      - name: body
-        in: body
-        description: user Data
-        required: true
-        schema:
-          $ref: '#/definitions/users'
+        - name: id
+          in: path
+          description: user Id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: "#/definitions/users"
       responses:
         200:
-          description: 'OK'
+          description: "OK"
         400:
-          description: 'Bad Request'
+          description: "Bad Request"
         409:
-          description: 'Conflict'
+          description: "Conflict"
         500:
-          description: 'Server Error'
+          description: "Server Error"
 
-# [DELETE] users/id
+    # [DELETE] users/id
     delete:
       tags:
-      - users
+        - users
       summary: Delete User By Id
       parameters:
-      - name: id
-        in: path
-        description: user Id
-        required: true
-        type: integer
+        - name: id
+          in: path
+          description: user Id
+          required: true
+          type: integer
       responses:
         200:
-          description: 'OK'
+          description: "OK"
         409:
-          description: 'Conflict'
+          description: "Conflict"
         500:
-          description: 'Server Error'
+          description: "Server Error"
+
+  # [GET] products
+  /products:
+    get:
+      tags:
+        - products
+      summary: Find All Products
+      responses:
+        200:
+          description: "OK"
+        500:
+          description: "Server Error"
+
+    # [POST] products
+    post:
+      tags:
+        - products
+      summary: Add Product
+      parameters:
+        - name: body
+          in: body
+          description: product Data
+          required: true
+          schema:
+            $ref: "#/definitions/products"
+      responses:
+        201:
+          description: "Created"
+        400:
+          description: "Bad Request"
+        409:
+          description: "Conflict"
+        500:
+          description: "Server Error"
+
+  # [GET] products/id
+  /products/{id}:
+    get:
+      tags:
+        - products
+      summary: Find Product By Id
+      parameters:
+        - name: id
+          in: path
+          description: Product Id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "OK"
+        409:
+          description: "Conflict"
+        500:
+          description: "Server Error"
+
+    # [PUT] products/id
+    put:
+      tags:
+        - products
+      summary: Update Product By Id
+      parameters:
+        - name: id
+          in: path
+          description: product Id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: product Data
+          required: true
+          schema:
+            $ref: "#/definitions/products"
+      responses:
+        200:
+          description: "OK"
+        400:
+          description: "Bad Request"
+        409:
+          description: "Conflict"
+        500:
+          description: "Server Error"
+
+    # [DELETE] products/id
+    delete:
+      tags:
+        - products
+      summary: Delete Product By Id
+      parameters:
+        - name: id
+          in: path
+          description: product Id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "OK"
+        409:
+          description: "Conflict"
+        500:
+          description: "Server Error"
 
 # definitions
 definitions:
   users:
     type: object
     required:
-        - email
-        - password
+      - email
+      - password
     properties:
       email:
         type: string
@@ -119,5 +225,5 @@ definitions:
         description: user Password
 
 schemes:
- - https
- - http
+  - https
+  - http
