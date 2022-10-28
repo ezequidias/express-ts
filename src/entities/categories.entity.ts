@@ -7,15 +7,14 @@ export class CategoryEntity extends BaseEntity implements Category {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  @IsNotEmpty()
+  @Column({nullable: true})
   parent_id: number;
 
   @Column()
   @IsNotEmpty()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   @IsNotEmpty()
   image: string;
 
