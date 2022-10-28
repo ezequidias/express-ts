@@ -18,6 +18,7 @@ export class CreateCategories1666835971503 implements MigrationInterface {
             name: 'parent_id',
             type: 'int',
             isNullable: true,
+            default: null
           },
           {
             name: 'name',
@@ -28,6 +29,7 @@ export class CreateCategories1666835971503 implements MigrationInterface {
             name: 'image',
             type: 'varchar',
             isNullable: true,
+            default: null
           },
           {
             name: 'created_at',
